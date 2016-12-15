@@ -1,0 +1,19 @@
+---
+- name: download helm script
+  get_url: url=https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get
+           dest=/opt/get_helm.sh
+
+
+- name: change permissions helm script
+  file: path=/opt/get_helm.sh
+        state=file
+        mode=0700
+
+
+- name: install helm script
+  command: ./get_helm.sh chdir=/opt creates=/usr/local/bin/helm
+
+
+- name: remove helm script
+  file: path=/opt/get_helm.sh
+        state=absent

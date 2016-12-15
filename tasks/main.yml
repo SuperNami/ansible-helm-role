@@ -1,0 +1,7 @@
+---
+- include: install/manual.yml
+  tags: install_manual
+
+
+- include: install/script.yml
+  tags: install_script

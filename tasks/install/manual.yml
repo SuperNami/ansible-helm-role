@@ -1,0 +1,23 @@
+---
+- name: download helm
+  get_url: url=http://storage.googleapis.com/kubernetes-helm/helm-{{ version }}-linux-amd64.tar.gz
+           dest=/opt/helm-{{ version }}-linux-amd64.tar.gz
+
+
+- name: unpack helm archive
+  command: tar -xvzf helm-{{ version }}-linux-amd64.tar.gz chdir=/opt creates=/opt/linux-amd64/helm
+
+
+- name: place binary
+  command: mv helm /usr/local/bin/helm chdir=/opt/linux-amd64 creates=/usr/local/bin/helm
+
+
+- name: remove helm archive
+  file: path=/opt/helm-{{ version }}-linux-amd64.tar.gz
+        state=absent
+
+
+- name: remove helm folder
+  file: path=/opt/linux-amd64
+        recurse=yes
+        state=absent
